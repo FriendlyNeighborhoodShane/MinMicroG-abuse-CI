@@ -1,0 +1,83 @@
+#!/bin/sh
+# Upload MinMicroG packages to releases
+
+error() {
+  echo " ";
+  echo "!!! FATAL: $1";
+  exit 1;
+}
+
+# Exit if not running on Github CI
+[ "$GITHUB_TOKEN" ] || exit 0;
+
+tag="$1";
+name="$2";
+date="$3";
+
+# Release variables
+auth="Authorization: token $GITHUB_TOKEN";
+ghapi="https://api.github.com/repos/$GITHUB_REPOSITORY/releases";
+ghupl="https://uploads.github.com/repos/$GITHUB_REPOSITORY/releases";
+id="$(curl -fs -H "$auth" "$ghapi/tags/$tag" | jq -r '.id')";
+
+# Big if true
+if [ "$id" != "null" ] && [ "$id" != "" ]; then
+  echo " ";
+  echo "Daily release $tag exists !!!";
+  exit 0;
+elif (cd "./MinMicroG-resdl" && [ "$(git diff --staged -- system)" ]); then
+  echo " ";
+  echo "Committing updates to resdl tracker...";
+  (
+    cd "./MinMicroG-resdl" || error "could not cd";
+    git -c user.name="github-actions" -c user.email="actions@github.com" commit --amend -m "Current bins";
+    git push -f "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY" "+HEAD:refs/volatile/current";
+  )
+elif [ "$GITHUB_EVENT_NAME" != "workflow_dispatch" ]; then
+  echo " ";
+  echo "Nothing to update !!!";
+  exit 0;
+fi;
+
+# Release time
+echo " ";
+echo "Creating release at $tag...";
+commit="$(git -C "./MinMicroG-resdl" rev-parse "HEAD")";
+[ "$commit" ] || error "could not get resdl commit";
+str="$(cat <<EOF | jq -Rsr "@json";
+Automatic release triggered by $GITHUB_EVENT_NAME.
+The masses deserve to be lazy!
+
+Update diff from last CI build:
+
+$( (cd "./MinMicroG-resdl" && git diff --raw "HEAD@{1}";) | "./diffmsg" | sed 's|^|  |g'; )
+
+Update diff from last official release:
+
+$( (cd "./MinMicroG-resdl" && git diff --raw "HEAD^";)    | "./diffmsg" | sed 's|^|  |g'; )
+EOF
+)";
+id="$(cat <<EOF | curl --data "@-" -H "$auth" -H "Content-Type: application/json" "$ghapi" | jq -r '.id';
+{
+  "tag_name": "$tag",
+  "target_commitish": "$commit",
+  "name": "$name",
+  "body": $str,
+  "draft": true
+}
+EOF
+)";
+[ "$id" ] && [ "$id" != "null" ] || error "could not find release id";
+
+# Upload time
+echo " ";
+echo "Uploading files...";
+for file in "./MinMicroG/releases"/*; do
+  ghass="$ghupl/$id/assets?name=$(basename "$file")";
+  curl --data-binary @"$file" -H "$auth" -H "Content-Type: application/octet-stream" "$ghass" -o /dev/null;
+done;
+
+# Publish drafted release
+cat <<EOF | curl --data "@-" -H "$auth" -H "Content-Type: application/json" "$ghapi/$id";
+{"draft":false}
+EOF
