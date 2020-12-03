@@ -1,0 +1,8 @@
+# Simple, no-dependency config to execute a file
+
+run:
+  image: ubuntu:latest
+  variables:
+    GITLAB_TOKEN: $CI_JOB_TOKEN
+  script: |
+    ./run
