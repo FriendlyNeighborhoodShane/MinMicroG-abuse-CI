@@ -52,6 +52,7 @@ android.permission.SET_TIME_ZONE
 android.permission.SIGNAL_PERSISTENT_PROCESSES
 android.permission.STATUS_BAR
 android.permission.UPDATE_DEVICE_STATS
+android.permission.USE_INSTALLER_V2
 android.permission.WRITE_APN_SETTINGS
 android.permission.WRITE_GSERVICES
 android.permission.WRITE_SECURE_SETTINGS
