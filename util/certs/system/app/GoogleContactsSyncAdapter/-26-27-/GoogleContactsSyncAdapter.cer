@@ -1,7 +1,7 @@
-subject=C = US, ST = California, L = Mountain View, O = Google Inc., OU = Android, CN = Android
-
-issuer=C = US, ST = California, L = Mountain View, O = Google Inc., OU = Android, CN = Android
-
+Signer #1 certificate DN: CN=Android, OU=Android, O=Google Inc., L=Mountain View, ST=California, C=US
+Signer #1 certificate SHA-256 digest: f0fd6c5b410f25cb25c3b53346c8972fae30f8ee7411df910480ad6b2d60db83
+Signer #1 certificate SHA-1 digest: 38918a453d07199354f8b19af05ec6562ced5788
+Signer #1 certificate MD5 digest: cde9f6208d672b54b1dacc0b7029f5eb
 -----BEGIN CERTIFICATE-----
 MIIEQzCCAyugAwIBAgIJAMLgh0ZkSjCNMA0GCSqGSIb3DQEBBAUAMHQxCzAJBgNV
 BAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1Nb3VudGFpbiBW
@@ -27,4 +27,3 @@ yj6z+a1fuHHvkiaai+KL8W1EyNmgjmyy8AW7P+LLlkR+ho5zEHatRbM/YAnqGcFh
 Qe3aDQsQcafEQPD+nqActifKZ0Np0IS9L9kR/wbNvyz6ENwPiTrjV2KRkEjH78ZM
 cUQXg0L3BYHJ3lc69Vs5Ddf9uUGGMYldX3WfMBEmh/9iFBDAaTCK
 -----END CERTIFICATE-----
-

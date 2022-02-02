@@ -1,7 +1,7 @@
-subject=C = IN, ST = Karnataka, L = Bengaluru, O = Drragons-CAF, OU = UI/UX, CN = Rahul Patel
-
-issuer=C = IN, ST = Karnataka, L = Bengaluru, O = Drragons-CAF, OU = UI/UX, CN = Rahul Patel
-
+Signer #1 certificate DN: CN=Rahul Patel, OU=UI/UX, O=Drragons-CAF, L=Bengaluru, ST=Karnataka, C=IN
+Signer #1 certificate SHA-256 digest: 4c626157ad02bda3401a7263555f68a79663fc3e13a4d4369a12570941aa280f
+Signer #1 certificate SHA-1 digest: 944275d7598bc03e488506064225a71990a22202
+Signer #1 certificate MD5 digest: d443bbcb42c766b1db964d99caabb571
 -----BEGIN CERTIFICATE-----
 MIIDgzCCAmugAwIBAgIEPnMD6DANBgkqhkiG9w0BAQsFADByMQswCQYDVQQGEwJJ
 TjESMBAGA1UECBMJS2FybmF0YWthMRIwEAYDVQQHEwlCZW5nYWx1cnUxFTATBgNV
@@ -23,4 +23,3 @@ XLmhwy37PsHNrwryeoqUtBVUZWw9lk2qm6T+ZAmdkkzIBE+mXjcGcHb5d6FhgfMk
 XzkWdwVPNUUor7aD5gIpkU7Slu2RqQ69iL6AzBpIFZWYzrdiOtg/hleDD0pkFpKp
 B76fyqzJprQdyI/RL3qzujm11Kmf4EhZ8WnNuHQ5ihTK2sK6g/W6
 -----END CERTIFICATE-----
-
